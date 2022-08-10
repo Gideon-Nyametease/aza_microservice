@@ -1,0 +1,21 @@
+# Read about fixtures at https://api.rubyonrails.org/classes/ActiveRecord/FixtureSet.html
+
+one:
+  transaction_id: MyString
+  customer_id: MyString
+  input_currency: MyString
+  input_amount: 9.99
+  output_currency: MyString
+  output_amount: 9.99
+  trans_status: MyString
+  active_status: false
+
+two:
+  transaction_id: MyString
+  customer_id: MyString
+  input_currency: MyString
+  input_amount: 9.99
+  output_currency: MyString
+  output_amount: 9.99
+  trans_status: MyString
+  active_status: false
