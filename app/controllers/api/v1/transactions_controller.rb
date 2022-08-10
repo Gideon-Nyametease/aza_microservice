@@ -6,8 +6,12 @@ module Api
       # GET /transactions
       def index
         @transactions = Transaction.all
-        logger.info "All Transactions ===> #{t@ransactions.inspect}"
+        logger.info "All Transactions ===> #{@transactions.inspect}"
         render json: @transactions
+      end
+
+      def customer_transaction
+        customer_transactions = Transaction.where("customer_id=?",params[:customer_id])
       end
 
       # GET /transactions/1
