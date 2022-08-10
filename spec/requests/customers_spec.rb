@@ -1,5 +1,7 @@
-# require 'rails_helper'
+require 'rails_helper'
 
+
+describe 'Transactions API V1 Customer tests', type: :request do
 # describe 'Customer', type: :request do
 #     describe "GET /index" do
 #         before do
@@ -90,3 +92,4 @@
 #         end
 #       end
 # end
+end

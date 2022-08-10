@@ -4,6 +4,7 @@ Rails.application.routes.draw do
     namespace :v1 do
       resources :transactions, only: [:index, :create, :show]
       resources :customers
+      post 'authenticate', to: 'authentication#create'
     end
   end
 end

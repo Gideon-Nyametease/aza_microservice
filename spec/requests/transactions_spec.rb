@@ -1,7 +1,7 @@
 require 'rails_helper'
 
 
-describe 'Transactions API V1', type: :request do
+describe 'Transactions', type: :request do
 
     describe 'GET /index' do
         let!(:customer) { FactoryBot.create(:customer, active_status: true) }
