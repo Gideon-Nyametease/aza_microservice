@@ -1,7 +1,8 @@
 class ApplicationController < ActionController::API
     before_action :set_default_format
-    respond_to :json
-    # wrap_parameters format: [:json]
+   
+    SUCCESS = "000"
+    FAIL = "100"
 
     rescue_from ActiveRecord::RecordNotFound, with: :record_not_found
     rescue_from ActionController::ParameterMissing, with: :bad_request

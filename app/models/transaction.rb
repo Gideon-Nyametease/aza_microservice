@@ -4,9 +4,9 @@ class Transaction < ApplicationRecord
     validates_uniqueness_of :transaction_id
     validates :customer_id, presence: true
     validates :input_currency, presence: true
-    validates :input_amt, numericality: { greater_than: 0 }
+    validates :input_amount, numericality: { greater_than: 0 }
     validates :output_currency, presence: true
-    validates :output_amt, numericality: { greater_than: 0 }
+    validates :output_amount, numericality: { greater_than: 0 }
   
     def self.get_single_transaction(trans_id)
       transaction_hash = {}
@@ -16,9 +16,9 @@ class Transaction < ApplicationRecord
             id: transaction.id,
             transaction_id: transaction.transaction_id,
             customer_id: transaction.customer_id,
-            input_amt: (transaction.input_amt).to_s,
+            input_amount: (transaction.input_amount).to_s,
             input_currency: transaction.input_currency,
-            output_amt: (transaction.output_amt).to_s,
+            output_amount: (transaction.input_amount).to_s,
             output_currency: transaction.output_currency,
             trans_status: transaction.trans_status,
             active_status: transaction.active_status

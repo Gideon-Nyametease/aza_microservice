@@ -5,20 +5,21 @@ module Api
 
       # GET /transactions
       def index
-        @transactions = Transaction.all
-        logger.info "All Transactions ===> #{@transactions.inspect}"
-        render json: @transactions
+        transactions = Transaction.limit(params[:limit])
+        # logger.info "All Transactions ===> #{transactions.inspect}"
+        render json: TransactionsRepresenter.new(transactions).as_json
       end
 
       def customer_transaction
         customer_transactions = Transaction.where("customer_id=?",params[:customer_id])
+        render json: TransactionsRepresenter.new(customer_transactions).cust_trxn_as_json(params[:customer_id])
       end
 
       # GET /transactions/1
       def show
         transaction = Transaction.get_single_transaction(@transaction.id)
         logger.info "Transaction ===> #{transaction.inspect}"
-        render json: { resp_code: SUCCESS, resp_desc: transaction }
+        render json: transaction
       end
 
       # POST /transactions
@@ -28,9 +29,9 @@ module Api
         @transaction.trans_status = true
         if @transaction.save
           transaction = Transaction.get_single_transaction(@transaction.id)
-          render json: {resp_code: SUCCESS, resp_desc: transaction }
+          render json: transaction, status: :created
         else
-          render json: {resp_code: FAIL, resp_desc: Utils.errors(@transaction)}
+          render json: @transaction.errors, status: :unprocessable_entity
         end
       end
 

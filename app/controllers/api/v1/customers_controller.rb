@@ -35,6 +35,7 @@ module Api
         render json: {resp_code: SUCCESS, resp_desc: customer }
       else
         render 
+      end
     end
 
     private

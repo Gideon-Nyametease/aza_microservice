@@ -1,4 +1,5 @@
 class Customer < ApplicationRecord
+    # self.primary_key = :customer_id
     has_many :transactions, class_name: "Transaction", foreign_key: :customer_id
     validates :first_name, presence: true
     validates :last_name, presence: true
