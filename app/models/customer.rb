@@ -11,13 +11,10 @@ class Customer < ApplicationRecord
         if customer
           customer_hash = {
               customer_id: customer.id,
-              age: customer.age,
               first_name: customer.first_name,
               last_name: customer.last_name,
-              other_names: customer.other_names,
               dob: customer.date_of_birth,
-              phone_no: customer.phone_number,
-              location: customer.location,
+              phone_number: customer.phone_number,
               height: customer.height,
               active_status: customer.active_status
           }

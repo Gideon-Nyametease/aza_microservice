@@ -6,39 +6,40 @@ module Api
       # GET /transactions
       def index
         @transactions = Transaction.all
-
+        logger.info "All Transactions ===> #{t@ransactions.inspect}"
         render json: @transactions
       end
 
       # GET /transactions/1
       def show
-        render json: @transaction
+        transaction = Transaction.get_single_transaction(@transaction.id)
+        logger.info "Transaction ===> #{transaction.inspect}"
+        render json: { resp_code: SUCCESS, resp_desc: transaction }
       end
 
       # POST /transactions
       def create
         @transaction = Transaction.new(transaction_params)
-
+        @transaction.transaction_id = Transaction.gen_trans_code
+        @transaction.trans_status = true
         if @transaction.save
-          render json: @transaction, status: :created, location: @transaction
+          transaction = Transaction.get_single_transaction(@transaction.id)
+          render json: {resp_code: SUCCESS, resp_desc: transaction }
         else
-          render json: @transaction.errors, status: :unprocessable_entity
+          render json: {resp_code: FAIL, resp_desc: Utils.errors(@transaction)}
         end
       end
 
       # PATCH/PUT /transactions/1
       def update
         if @transaction.update(transaction_params)
-          render json: @transaction
+          transaction = Transaction.get_single_transaction(@transaction.id)
+          render json: {resp_code: SUCCESS, resp_desc: transaction }
         else
-          render json: @transaction.errors, status: :unprocessable_entity
+          render json: { resp_code: FAIL, resp_desc: Utils.errors(@transaction) }
         end
       end
 
-      # DELETE /transactions/1
-      def destroy
-        @transaction.destroy
-      end
 
       private
         # Use callbacks to share common setup or constraints between actions.
