@@ -30,7 +30,7 @@ describe 'Transactions', type: :request do
 
     describe 'POST /transactions' do
         context "valid parameters" do
-            let!(:customer) { FactoryBot.create(:customer, active_status: true) }
+            let(:customer) { FactoryBot.create(:customer, active_status: true) }
             let(:valid_params) do
               { transaction: {
                   customer_id: customer.id,
@@ -41,7 +41,7 @@ describe 'Transactions', type: :request do
                   output_currency: Faker::Currency.code,
                   active_status: true,
                   trans_status: "PASSED"
-              }}
+              }, headers: { Authorization: "Bearer eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJ1c2VyX2lkIjoxfQ.LsDBc77pnaGAayIYeTv98TEjixb-9X-cY3hchoPshpQ" }}
             end
       
             it "creates a new transaction" do
@@ -64,7 +64,7 @@ describe 'Transactions', type: :request do
                   output_currency: Faker::Currency.code,
                   active_status: true,
                   trans_status: "Failed"
-              }}
+              }, headers: {"Authorization"=>"Bearer eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJ1c2VyX2lkIjoxfQ.LsDBc77pnaGAayIYeTv98TEjixb-9X-cY3hchoPshpQ"}}
             end
       
             it "can't create new transaction because validation failed" do

@@ -1,7 +1,11 @@
 module Api 
   module V1
       class TransactionsController < ApplicationController
-      before_action :set_transaction, only: [:show, :update, :destroy]
+      # include ActionController::HttpAuthentication::Token::ControllerMethods
+      include ActionController::HttpAuthentication::Token
+      before_action :authenticate_user, only: [:create]
+      before_action :set_transaction, only: [:show, :update]
+      
 
       # GET /transactions
       def index
@@ -39,18 +43,38 @@ module Api
       def update
         if @transaction.update(transaction_params)
           transaction = Transaction.get_single_transaction(@transaction.id)
-          render json: {resp_code: SUCCESS, resp_desc: transaction }
+          render json: transaction, status: :created
         else
-          render json: { resp_code: FAIL, resp_desc: Utils.errors(@transaction) }
+          render json: @transaction.errors, status: :unprocessable_entity
         end
       end
 
 
       private
+       
+      def authenticate_user
+        # binding.irb
+        token, _options = token_and_options(request)
+        logger.info "token ===> #{token.inspect}"
+        user_id = AuthenticationTokenService.decode(token)
+        User.find(user_id)
+
+      rescue ActiveRecord::RecordNotFound
+        render status: :unauthorized
+     
+        # authenticate_with_http_token do |token, options|
+        #   # ActiveSupport::SecurityUtils.secure_compare(token, TOKEN)
+        #   logger.info "token ===> #{token.inspect}"
+        #   user_id = AuthenticationTokenService.decode(token)
+        #   raise user_id.inspect
+        # end
+      end
+
         # Use callbacks to share common setup or constraints between actions.
         def set_transaction
           @transaction = Transaction.find(params[:id])
         end
+
 
         # Only allow a list of trusted parameters through.
         def transaction_params
