@@ -1,6 +1,6 @@
 class AuthenticationTokenService
-    HMAC_SECRET = 'my$ecretK3y'
-    ALGO_TYPE = 'HS256'
+    HMAC_SECRET = Rails.application.credentials.jwt[:hmac_secret]
+    ALGO_TYPE = Rails.application.credentials.jwt[:algo_type]
 
     def self.encode(user_id)
         # p "id from auth service ==> #{user_id}"
