@@ -41,7 +41,7 @@ describe 'Transactions', type: :request do
                   output_currency: Faker::Currency.code,
                   active_status: true,
                   trans_status: "PASSED"
-              }, headers: { Authorization: "Bearer eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJ1c2VyX2lkIjoxfQ.LsDBc77pnaGAayIYeTv98TEjixb-9X-cY3hchoPshpQ" }}
+              }, headers: { "Authorization"=> "Bearer eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJ1c2VyX2lkIjoxfQ.LsDBc77pnaGAayIYeTv98TEjixb-9X-cY3hchoPshpQ" }}
             end
       
             it "creates a new transaction" do

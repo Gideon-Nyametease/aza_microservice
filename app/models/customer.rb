@@ -14,7 +14,7 @@ class Customer < ApplicationRecord
               customer_id: customer.id,
               first_name: customer.first_name,
               last_name: customer.last_name,
-              dob: customer.date_of_birth,
+              dob: customer.dob,
               phone_number: customer.phone_number,
               height: customer.height,
               active_status: customer.active_status

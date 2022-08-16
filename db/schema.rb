@@ -10,7 +10,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 2022_08_11_233329) do
+ActiveRecord::Schema.define(version: 2022_08_16_140102) do
 
   # These are extensions that must be enabled in order to support this database
   enable_extension "plpgsql"
@@ -34,7 +34,7 @@ ActiveRecord::Schema.define(version: 2022_08_11_233329) do
     t.string "output_currency"
     t.decimal "output_amount"
     t.string "trans_status", default: "Pending"
-    t.boolean "active_status", default: false
+    t.boolean "active_status", default: true
     t.datetime "created_at", precision: 6, null: false
     t.datetime "updated_at", precision: 6, null: false
   end

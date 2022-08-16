@@ -1,9 +1,7 @@
 module Api 
     module V1
         class AuthenticationController < ApplicationController
-            class AuthenticationError < StandardError; end
-
-            rescue_from AuthenticationError, with: :unauthenticated
+            
 
             def create
                 raise AuthenticationError unless user.authenticate(params.require(:password))
@@ -16,10 +14,6 @@ module Api
             def user
                 @user ||= User.find_by(username: params.require(:username)) 
             end
-            def unauthenticated
-                head :unauthorized
-            end
-            
         end
     end
   end
